@@ -1,2 +1,48 @@
 // Plugin
-.plugin-1 {}
+.overlay {
+	position: fixed;
+	.square(100%);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #000000;
+	opacity: 0.75;
+	display: none;
+}
+.layer {
+	box-shadow: 0 0 10px #363636;
+	background: #ffffff;
+	display: none;
+	max-width: 100%;
+	max-height: 100%;
+	.layer-outer {
+		position: relative;
+	}
+	.layer-close {
+		position: absolute;
+		color: #000000;
+		text-shadow: 0 1px 1px #ffffff;
+		padding: 5px 10px;
+		margin: 0;
+		top: 3px;
+		right: 4px;
+		border: solid 1px #bbbbbb;
+		background: #bbbbbb;
+		border-radius: 2px;
+		span {
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+	.layer-header {
+		font-size: 16px;
+		background: #cccccc;
+		margin: 0;
+		padding: 10px 20px;
+		padding-right: 50px;
+	}
+	.layer-content {
+		padding: 20px;
+	}
+}

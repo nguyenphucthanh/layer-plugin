@@ -221,13 +221,17 @@ module.exports = function(grunt) {
       }
     },  
     nodemon: {
+      options: {
+        ignore: ['node_modules/**', '<%= meta.assets %>js/**'],
+        ext: 'js'
+      },
       dev: {
         script: 'source/server.js'
       }
     },
     concurrent: {
       options: {
-        limit: 3
+        limit: 2
       },
       dev: {
         tasks: ['nodemon:dev', 'watch'],
