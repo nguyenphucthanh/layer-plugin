@@ -1,0 +1,11 @@
+extends layouts/layout
+
+block vars
+  -title = 'Homepage'
+  -bodyClass = 'home'
+  -menuIndex = 0
+
+block container
+  .inner
+    include blocks/sidebar
+    main#main Content goes here    

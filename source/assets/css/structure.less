@@ -1,0 +1,57 @@
+// Structure
+#container {
+  margin: 0 auto;
+  width: 980px;
+  > .inner {
+    width: 100%;
+    margin: 10px auto;
+    .clearfix();
+  }
+}
+#header {
+  width: 100%;
+  .logo {
+    font-size: 30px;
+    opacity: 0.5;
+  }
+  nav {
+    margin: 5px 0;
+    padding: 10px;
+    height: 14px;
+    border: 1px solid #ddd;
+    background: #f7f7f7;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px;
+    li {
+      float: left;
+      padding: 0 5px;      
+    }
+    .active a {
+      color: gray;
+    }
+  }
+}
+#sidebar {
+  float: left;
+  padding: 10px;
+  width: 220px;
+  min-height: 500px;
+  background: #f7f7f7;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px;
+}
+#main {
+  float: right;
+  padding: 10px;
+  width: 710px;
+  min-height: 500px;
+  background: #f7f7f7;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px;
+}
+#footer {
+  padding: 10px;
+  background: #f7f7f7;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px;
+}
