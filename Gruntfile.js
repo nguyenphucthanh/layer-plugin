@@ -31,7 +31,8 @@ module.exports = function(grunt) {
         files: [{
           '<%= meta.build %>css/style.css': '<%= meta.assets %>css/style.less',
           '<%= meta.build %>css/ie.css': '<%= meta.assets %>css/ie.less',
-          '<%= meta.build %>css/print.css': '<%= meta.assets %>css/print.less'
+          '<%= meta.build %>css/print.css': '<%= meta.assets %>css/print.less',
+          '<%= meta.build %>css/animate.css': '<%= meta.assets %>css/animate.less'
         }]
       }
     },
@@ -121,7 +122,7 @@ module.exports = function(grunt) {
       options: {
         csslintrc: '.csslintrc'
       },
-      files: ['<%= meta.build %>css/*.css']
+      files: ['<%= meta.build %>css/style.css', '<%= meta.build %>css/print.css']
     },
     htmlhint: {
       options: {
@@ -191,7 +192,8 @@ module.exports = function(grunt) {
         files: [{
           '<%= meta.build %>css/style.css': '<%= meta.build %>css/style.css',
           '<%= meta.build %>css/ie.css': '<%= meta.build %>css/ie.css',
-          '<%= meta.build %>css/print.css': '<%= meta.build %>css/print.css'
+          '<%= meta.build %>css/print.css': '<%= meta.build %>css/print.css',
+          '<%= meta.build %>css/animate.css': '<%= meta.build %>css/animate.css'
         }]
       }
     },
