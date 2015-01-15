@@ -52,7 +52,19 @@
         debounceDuration = 150;
       }
 
+      //add class .iemobile to html to detect IEMobile
+      if(navigator.userAgent.match(/IEMobile/g)) {
+        $('html').addClass('iemobile');
+      }
+
       var that = this;
+
+      //create id attribute if layer doesn't specify an id
+      if(!that.element.attr('id')) {
+        var newId = Math.random();
+        newId = newId.toString().substring(newId.toString().indexOf('.') + 1);
+        that.element.attr('id', newId);
+      }
 
       //overide option again if user specified option iside data-layer-option attribute
       if(that.element.data('layer-option')) {
@@ -97,6 +109,12 @@
       .on('click.open-layer', function(e) {
         e.preventDefault();
         that.open();
+
+        if('pushState' in history) {
+          history.pushState({
+            popup: '#' + that.element.attr('id')
+          }, document.title, '#' + that.element.attr('id'));
+        }
       });
 
       //overider css3 animation duration
@@ -203,6 +221,7 @@
         });
 
         that.backdrop.height(that.element.height() + (padding * 2));
+
       }
     },
     open: function() {
@@ -210,7 +229,7 @@
 
       //if freezeBody is specified or scroll whole popup then body will be overflow-hidden
       if(that.options.freezeBody || that.options.scroll === 'popup') {
-        $('body').addClass('no-overflow');
+        $('body').addClass('no-overflow').data('scrollTop', $('body').scrollTop());
       }
 
       //show overlay
@@ -271,10 +290,21 @@
         }, debounceDuration);
       });
     },
-    close: function() {
+    close: function(state) {
       var that = this;
 
-      $('body').removeClass('no-overflow');
+      if(typeof(state) === 'undefined') {
+        if('pushState' in history) {
+          history.go(-1);
+        }
+      }
+      else if (state === 'popping') {
+        return;
+      }
+
+      if($('body').is('.no-overflow')) {
+        $('body').removeClass('no-overflow').scrollTop($('body').data('scrollTop'));
+      }
 
       //hide overlay
       if(that.overlay.is(':visible')) {
@@ -378,5 +408,24 @@
     closeOnClickOverlay: true,
     closeOnEsc: true
   };
+
+  $.fn[pluginName].hideAll = function() {
+    $('[data-' + pluginName + ']:visible').layer('close', 'popping');
+  };
+
+  if('pushState' in history) {
+    history.replaceState({
+      popup: 'no-popup'
+    }, document.title, document.location.href);
+
+    window.addEventListener('popstate', function(event) {
+      $.fn[pluginName].hideAll();
+      if(event.state.popup) {
+        if(event.state.popup !== 'no-popup') {
+          $(event.state.popup).layer('open');
+        }
+      }
+    });
+  }
 
 }(jQuery, window));

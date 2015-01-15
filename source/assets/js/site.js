@@ -7,13 +7,14 @@ var Site = (function($, window, undefined) {
 
   function initPopup() {
     //basic layer
-    $('#layer-1').layer();
+    $('#layer-1').layer({
+    	scroll: 'popup'
+    });
   }
 
   return {
     initPopup: initPopup
   };
-
 })(jQuery, window);
 
 jQuery(function() {
