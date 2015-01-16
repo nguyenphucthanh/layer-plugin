@@ -152,3 +152,6 @@ Enable closing layer when pressing `Esc` key.
 At first, you have to define ID for your layer element, or plugin will create a random id for layer if you forget to do so.
 
 On layer appearance, the address will append `#layer-id`. Then you can use browser navigator (back/previous) to show hide layer. This is huge feature, especially on mobile device, we can use hardware back button to close layer.
+
+##MISC
+1. Overlay animate keyframes is not in `Animate.less`. It's in plugin.less. Those keyframes are cloned from `Animate.less` `fadeIn` and `fadeOut`.
