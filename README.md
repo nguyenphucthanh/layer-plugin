@@ -5,6 +5,8 @@
 ##HTML
 All attributes in below sample are required for initializing. You don't need to create overlay element, plugin will create an overlay to wrap your layer, create a backdrop for special event and move the whole block to body.
 ```html
+<a data-trigger-layer="#layer-1">Open layer</a>
+
 <div id="layer-1" data-layer="true" class="layer">
 	<div class="inner">
 		<button data-layer-close="true" class="layer-close"><span>&times;</span></button>
@@ -142,6 +144,6 @@ Available value: `true | false`
 Enable closing layer when pressing `Esc` key.
 
 ##HTML5 History API
-At first, you have to define ID for your layer element.
+At first, you have to define ID for your layer element, or plugin will create a random id for layer if you forget to do so.
 
 On layer appearance, the address will append `#layer-id`. Then you can use browser navigator (back/previous) to show hide layer. This is huge feature, especially on mobile device, we can use hardware back button to close layer.
