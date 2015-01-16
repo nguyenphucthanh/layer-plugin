@@ -220,7 +220,8 @@
         if(that.options.forceFullHeight) {
           if(that.element.height() + (padding * 2) < $(window).height()) {
             that.element.css({
-              'height' : $(window).height() - (padding * 2)
+              'height' : $(window).height() - (padding * 2),
+              'maxHeight' : ''
             });
           }
         }

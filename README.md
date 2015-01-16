@@ -68,7 +68,8 @@ $('#layer').layer({
 	desktopViewPadding: 20,
 	mobileViewPadding: 0,
 	closeOnClickOverlay: true,
-	closeOnEsc: true
+	closeOnEsc: true,
+	forceFullHeight: false
 });
 ```
 
@@ -161,6 +162,13 @@ Enable closing layer when clicking on overlay
 Available value: `true | false`
 
 Enable closing layer when pressing `Esc` key.
+
+###forceFullHeight (default: false)
+Available value: `true | false`
+
+* true: force layer height to full screen if the content is shorter than window size. This option will disable `maxHeight`.
+
+* false: leave the height auto
 
 ##HTML5 History API
 At first, you have to define ID for your layer element, or plugin will create a random id for layer if you forget to do so.
