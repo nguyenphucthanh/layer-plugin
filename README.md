@@ -9,9 +9,11 @@
 
 ##HTML
 All attributes in below sample are required for initializing. You don't need to create overlay element, plugin will create an overlay to wrap your layer, create a backdrop for special event and move the whole block to body.
+
 ```html
 <a data-trigger-layer="#layer-1">Open layer</a>
 ```
+
 ```html
 <div id="layer-1" data-layer="true" class="layer">
 	<div class="inner">
@@ -32,6 +34,14 @@ All attributes in below sample are required for initializing. You don't need to 
 			</div>
 		</div>
 	</div>
+</div>
+```
+
+Config layer using data attribute. These options will overwrite options on javascript initializing
+
+```html
+<div id="layer-1" data-layer="true" class="layer" data-layer-option="{ \"width\" : 800 , \"scroll\" : \"content\" }">
+	...
 </div>
 ```
 
