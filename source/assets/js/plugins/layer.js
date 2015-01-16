@@ -53,11 +53,6 @@
         debounceDuration = 150;
       }
 
-      //add class .iemobile to html to detect IEMobile
-      if(navigator.userAgent.match(/IEMobile/g)) {
-        $('html').addClass('iemobile');
-      }
-
       var that = this;
 
       //create id attribute if layer doesn't specify an id
@@ -93,7 +88,7 @@
       }
 
       if(!that.layerFooter.length) {
-        that.element.removeClass('no-footer');
+        that.element.addClass('no-footer');
       }
 
       //Bind close action to close button
@@ -105,7 +100,7 @@
       });
 
       //Bind open action to trigger
-      $('[data-trigger-' + pluginName + ']')
+      $('[data-trigger-' + pluginName + '="#' + that.element.attr('id') + '"]')
       .off('click.open-layer')
       .on('click.open-layer', function(e) {
         e.preventDefault();
@@ -201,6 +196,8 @@
       - set height for backdrop element
       */
       if(that.options.scroll === 'content' || that.options.scroll !== 'popup') {
+        //fix some bug on Samsung galaxy phone
+
         //set max height for layer
         //heigh of layer <= window - (view padding option * 2)
         if(maxHeight + (padding * 2) >= $(window).height()) {
@@ -250,12 +247,19 @@
     open: function() {
       var that = this;
 
-      //if freezeBody is specified or scroll whole popup then body will be overflow-hidden
-      if(that.options.freezeBody || that.options.scroll === 'popup') {
+      $('body').addClass('no-overflow');
+      //fix IE7 still able to scroll when set body overflow-hidden
+      if(ieVersion > -1 && ieVersion < 8.0) {
+        $('html').css('overflow', 'hidden');
+      }
+
+      //on mobile device remember scrollTop of body when open layer
+      if($('html').is('.iemobile, .ios, .android')) {
+        $('body').data('scrollTop', $(window).scrollTop());
+      }
+
+      if(navigator.userAgent.match(/Android/g)) {
         $('body').addClass('no-overflow');
-        if(ieVersion > -1 && ieVersion < 8.0) {
-          $('html').css('overflow', 'hidden');
-        }
       }
 
       //show overlay
@@ -283,14 +287,16 @@
       that.element.trigger('beforeOpen');
 
       //show popup
+      var animationIn = $(window).width() > that.options.mobileBreakpoint ? that.options.animationIn : that.options.mobileAnimationIn;
+
       if(that.options.useCss3 && isCss3) {
         that.element
         .show(0)
-        .addClass('animated ' + that.options.animationIn)
+        .addClass('animated ' + animationIn)
         .off(animationEvents)
         .on(animationEvents, function() {
           that.element
-          .removeClass('animated ' + that.options.animationIn)
+          .removeClass('animated ' + animationIn)
           .off(animationEvents)
 
           //trigger afterOpen event
@@ -333,7 +339,14 @@
         }
       }
 
+      //on mobile device remember scrollTop of body when open layer
+      if($('html').is('.iemobile, .ios, .android')) {
+        $(window).scrollTop($('body').data('scrollTop'));
+      }
+
       //hide overlay
+      var animationOut = $(window).width() > that.options.mobileBreakpoint ? that.options.animationOut : that.options.mobileAnimationOut;
+
       if(that.overlay.is(':visible')) {
         if(that.options.useCss3 && isCss3) {
           that.backdrop
@@ -360,12 +373,12 @@
 
       if(that.options.useCss3 && isCss3) {
         that.element
-        .addClass('animated ' + that.options.animationOut)
+        .addClass('animated ' + animationOut)
         .off(animationEvents).on(animationEvents, function() {
           that.element
           .hide()
           .off(animationEvents)
-          .removeClass('animated ' + that.options.animationOut)
+          .removeClass('animated ' + animationOut)
           .trigger('afterClose'); //trigger afterClose event
         });
       }
@@ -422,12 +435,13 @@
 
   $.fn[pluginName].defaults = {
     useCss3: true,
-    freezeBody: true,
     overlayClass: 'overlay',
     overlayAnimateDuration: false,
     animateDuration: false,
     animationIn: 'bounceInDown',
     animationOut: 'bounceOutUp',
+    mobileAnimationIn: 'bounceInLeft',
+    mobileAnimationOut: 'bounceOutLeft',
     customClass: '',
     position: 'fixed',
     width: 640,
@@ -443,6 +457,17 @@
   $.fn[pluginName].hideAll = function() {
     $('[data-' + pluginName + ']:visible').layer('close', 'popping');
   };
+
+  //add class .iemobile to html to detect IEMobile
+  if(navigator.userAgent.match(/IEMobile/g)) {
+    $('html').addClass('iemobile');
+  }
+  if(navigator.userAgent.match(/Android/g)) {
+    $('html').addClass('android');
+  }
+  if(navigator.userAgent.match(/iPhone|iPad|iPod/g)) {
+    $('html').addClass('ios');
+  }
 
   if('pushState' in history) {
     history.replaceState({

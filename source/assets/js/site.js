@@ -6,8 +6,17 @@
 var Site = (function($, window, undefined) {
 
   function initPopup() {
-    //basic layer
     $('#layer-1').layer();
+
+    $('#layer-2').layer({
+    	scroll: 'popup'
+    });
+
+    $('#layer-3').layer();
+
+    $('#layer-4').layer();
+
+    $('#layer-5').layer();
   }
 
   return {

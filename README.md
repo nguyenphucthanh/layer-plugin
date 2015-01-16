@@ -11,19 +11,24 @@
 All attributes in below sample are required for initializing. You don't need to create overlay element, plugin will create an overlay to wrap your layer, create a backdrop for special event and move the whole block to body.
 ```html
 <a data-trigger-layer="#layer-1">Open layer</a>
-
+```
+```html
 <div id="layer-1" data-layer="true" class="layer">
 	<div class="inner">
 		<button data-layer-close="true" class="layer-close"><span>&times;</span></button>
-		<h2 class="layer-header">...</h2>
+		<!--layer header can be removed-->
+		<h2 class="layer-header">Layer title</h2>
+
 		<div class="layer-content-wrap">
 			<div class="layer-content">
-				...
+				Layer content
 			</div>
 		</div>
+
+		<!--layer footer can be removed-->
 		<div class="layer-footer">
 			<div class="inner">
-				...
+				Layer footer
 			</div>
 		</div>
 	</div>
@@ -37,12 +42,13 @@ $('#layer').layer();
 ```js
 $('#layer').layer({
 	useCss3: true,
-	freezeBody: true,
 	overlayClass: 'overlay',
 	overlayAnimateDuration: false,
 	animateDuration: false,
 	animationIn: 'bounceInDown',
 	animationOut: 'bounceOutUp',
+	mobileAnimationIn: 'bounceInLeft',
+	mobileAnimationOut: 'bounceOutLeft',
 	customClass: '',
 	position: 'fixed',
 	width: 640,
@@ -64,14 +70,6 @@ Available value: `true | false`
 * true: if browser support css3 animation, entrance and exit effect will use `Animate.less`. If browser doesn't support css3 animation, will use jQuery `fadeIn` and `fadeOut` effect.
 * false: use jQuery `fadeIn` and `fadeOut` function.
 
-###freezeBody (default: true)
-Freeze body scrolling on layer appearance or not.
-
-Available value: `true | false`
-
-* true: on layer appearance, `body` will add class `no-overflow` which set `overflow: hidden`.
-* false: `body` will not add class `no-overflow` on layer appearance.
-
 ###overlayClass (default: 'overlay')
 Append custom class to overlay element.
 
@@ -92,7 +90,7 @@ Set animate duration for layer
 
 Avalable value: Refer `overlayAnimateDuration`
 
-###animationIn: (default: 'bounceInDown')
+###animationIn (default: 'bounceInDown')
 Define animation type for layer appearance.
 
 Available value: Refer `Animate.less`, you can use any effect in `Fading entrances`, `Bouncing entrances` and `Rotating entrances`.
@@ -105,6 +103,12 @@ Define animation type for layer closing.
 Available value: Refer `Animate.less`, you can use any effect in `Fading exits`, `Bouncing exits` and `Rotating exits`.
 
 On browsers which doesn't support css3 animation, this option will be set back to jQuery `fadeOut`.
+
+###mobileAnimationIn (default: 'bounceInLeft')
+Like `animationIn` but for viewport under `mobileBreakpoint`
+
+###mobileAnimationOut (default: 'bounceOutLeft')
+Like `animationOut` but for viewport under `mobileBreakpoint`
 
 ###position (default: 'fixed')
 Set css position for layer element.

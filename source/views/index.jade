@@ -11,6 +11,10 @@ block container
 		main#main
 			h3 Demo
 			ul.demo-list
-				li: a(href="javascript:void(0);", data-trigger-layer="#layer-1") Basic layer
+				li: a(href="javascript:void(0);", data-trigger-layer="#layer-1") Basic layer (scroll content)
+				li: a(href="javascript:void(0);", data-trigger-layer="#layer-2") Basic layer (scroll popup)
+				li: a(href="javascript:void(0);", data-trigger-layer="#layer-3") Layer without footer
+				li: a(href="javascript:void(0);", data-trigger-layer="#layer-4") Layer without header
+				li: a(href="javascript:void(0);", data-trigger-layer="#layer-5") Layer without header & footer
 			+loremipsum()
 	include blocks/layer
