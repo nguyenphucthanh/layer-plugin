@@ -6,20 +6,20 @@
 All attributes in below sample are required for initializing.
 ```html
 <div id="layer-1" data-layer="true" class="layer">
-  <div class="inner">
-    <button data-layer-close="true" class="layer-close"><span>&times;</span></button>
-    <h2 class="layer-header">...</h2>
-    <div class="layer-content-wrap">
-      <div class="layer-content">
-        ...
-      </div>
-    </div>
-    <div class="layer-footer">
-      <div class="inner">
-        ...
-      </div>
-    </div>
-  </div>
+	<div class="inner">
+		<button data-layer-close="true" class="layer-close"><span>&times;</span></button>
+		<h2 class="layer-header">...</h2>
+		<div class="layer-content-wrap">
+			<div class="layer-content">
+				...
+			</div>
+		</div>
+		<div class="layer-footer">
+			<div class="inner">
+				...
+			</div>
+		</div>
+	</div>
 </div>
 ```
 
@@ -30,22 +30,22 @@ $('#layer').layer();
 ```js
 $('#layer').layer({
 	useCss3: true,
-  freezeBody: true,
-  overlayClass: 'overlay',
-  overlayAnimateDuration: false,
-  animateDuration: false,
-  animationIn: 'bounceInDown',
-  animationOut: 'bounceOutUp',
-  customClass: '',
-  position: 'fixed',
-  width: 640,
-  maxHeight: 640,
-  scroll: 'content',
-  mobileBreakpoint: 767,
-  desktopViewPadding: 20,
-  mobileViewPadding: 0,
-  closeOnClickOverlay: true,
-  closeOnEsc: true
+	freezeBody: true,
+	overlayClass: 'overlay',
+	overlayAnimateDuration: false,
+	animateDuration: false,
+	animationIn: 'bounceInDown',
+	animationOut: 'bounceOutUp',
+	customClass: '',
+	position: 'fixed',
+	width: 640,
+	maxHeight: 640,
+	scroll: 'content',
+	mobileBreakpoint: 767,
+	desktopViewPadding: 20,
+	mobileViewPadding: 0,
+	closeOnClickOverlay: true,
+	closeOnEsc: true
 });
 ```
 
