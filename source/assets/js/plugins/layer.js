@@ -187,6 +187,11 @@
         'margin-left': -(width / 2)
       });
 
+      //reset height
+      that.element.css({
+        'height' : ''
+      });
+
       /*
       if scroll inside layer content then
       - set max Height (option 'maxHeight' or window height if maxHeight > window height)
@@ -195,6 +200,7 @@
       if scroll whole layer then no need to set height of layer
       - set height for backdrop element
       */
+
       if(that.options.scroll === 'content' || that.options.scroll !== 'popup') {
         //fix some bug on Samsung galaxy phone
 
@@ -210,6 +216,14 @@
 
         //reset content height before calculating
         that.layerContentWrap.css('height', '');
+
+        if(that.options.forceFullHeight) {
+          if(that.element.height() + (padding * 2) < $(window).height()) {
+            that.element.css({
+              'height' : $(window).height() - (padding * 2)
+            });
+          }
+        }
 
         var elementHeight = that.element.height();
 
@@ -241,8 +255,9 @@
         });
 
         that.backdrop.height(that.element.height() + (padding * 2));
-
       }
+
+
     },
     open: function() {
       var that = this;
@@ -451,7 +466,8 @@
     desktopViewPadding: 20,
     mobileViewPadding: 0,
     closeOnClickOverlay: true,
-    closeOnEsc: true
+    closeOnEsc: true,
+    forceFullHeight: false
   };
 
   $.fn[pluginName].hideAll = function() {

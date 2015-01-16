@@ -17,6 +17,12 @@ var Site = (function($, window, undefined) {
     $('#layer-4').layer();
 
     $('#layer-5').layer();
+
+    $('#layer-6').layer();
+
+    $('#layer-7').layer({
+    	forceFullHeight: true
+    });
   }
 
   return {
