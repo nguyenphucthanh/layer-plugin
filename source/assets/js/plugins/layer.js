@@ -34,6 +34,8 @@
     return rv;
   }
 
+  var ieVersion = getInternetExplorerVersion();
+
   function Plugin(element, options) {
     this.element = $(element);
     this.options = $.extend({}, $.fn[pluginName].defaults, this.element.data(), options);
@@ -47,7 +49,6 @@
       we have to increase the debouceDuration because of slow performace
       when you resize your window (responsive ability)
       */
-      var ieVersion = getInternetExplorerVersion();
       if(ieVersion > -1 && ieVersion < 10.0) {
         debounceDuration = 150;
       }
@@ -122,24 +123,46 @@
       if(isCss3 && that.options.useCss3) {
         that.options.animateDuration = parseInt(that.options.animateDuration, 10);
         that.element.css({
-          'animation-duration': that.options.animateDuration + 'ms',
-          '-webkit-animation-duration': that.options.animateDuration + 'ms',
-          '-moz-animation-duration': that.options.animateDuration + 'ms',
-          '-o-animation-duration': that.options.animateDuration + 'ms'
-        });
+          'animation-duration': '',
+          '-webkit-animation-duration': '',
+          '-moz-animation-duration': '',
+          '-o-animation-duration': ''
+        }); //reset first
+
+        if(that.options.animateDuration !== false) {
+          that.element.css({
+            'animation-duration': that.options.animateDuration + 'ms',
+            '-webkit-animation-duration': that.options.animateDuration + 'ms',
+            '-moz-animation-duration': that.options.animateDuration + 'ms',
+            '-o-animation-duration': that.options.animateDuration + 'ms'
+          }); //then apply animation duration
+        }
 
         that.options.overlayAnimateDuration = parseInt(that.options.overlayAnimateDuration, 10);
         that.backdrop.css({
-          'animation-duration': that.options.overlayAnimateDuration + 'ms',
-          '-webkit-animation-duration': that.options.overlayAnimateDuration + 'ms',
-          '-moz-animation-duration': that.options.overlayAnimateDuration + 'ms',
-          '-o-animation-duration': that.options.overlayAnimateDuration + 'ms'
+          'animation-duration': '',
+          '-webkit-animation-duration': '',
+          '-moz-animation-duration': '',
+          '-o-animation-duration': ''
         });
+
+        if(that.options.overlayAnimateDuration !== false) {
+          that.backdrop.css({
+            'animation-duration': that.options.overlayAnimateDuration + 'ms',
+            '-webkit-animation-duration': that.options.overlayAnimateDuration + 'ms',
+            '-moz-animation-duration': that.options.overlayAnimateDuration + 'ms',
+            '-o-animation-duration': that.options.overlayAnimateDuration + 'ms'
+          });
+        }
+      }
+      else {
+        that.options.animateDuration = 400;
+        that.options.overlayAnimateDuration = 400;
       }
 
       //close on Esc key
       if(that.options.closeOnEsc) {
-        $(document).keyup(function(e) {
+        $(document).off('keyup.close-layer').on('keyup.close-layer', function(e) {
           var key = e.keyCode || e.which;
           if(key === 27) {
             e.preventDefault();
@@ -229,7 +252,10 @@
 
       //if freezeBody is specified or scroll whole popup then body will be overflow-hidden
       if(that.options.freezeBody || that.options.scroll === 'popup') {
-        $('body').addClass('no-overflow').data('scrollTop', $('body').scrollTop());
+        $('body').addClass('no-overflow');
+        if(ieVersion > -1 && ieVersion < 8.0) {
+          $('html').css('overflow', 'hidden');
+        }
       }
 
       //show overlay
@@ -301,7 +327,10 @@
       }
 
       if($('body').is('.no-overflow')) {
-        $('body').removeClass('no-overflow').scrollTop($('body').data('scrollTop'));
+        $('body').removeClass('no-overflow');
+        if(ieVersion > -1 && ieVersion < 8.0) {
+          $('html').css('overflow', '');
+        }
       }
 
       //hide overlay
@@ -368,6 +397,10 @@
         });
       }
     },
+    option: function(option, value) {
+      this.options[option] = value;
+      this.init();
+    },
     destroy: function() {
       // deinitialize
       $.removeData(this.element[0], pluginName);
@@ -391,8 +424,8 @@
     useCss3: true,
     freezeBody: true,
     overlayClass: 'overlay',
-    overlayAnimateDuration: 400,
-    animateDuration: 400,
+    overlayAnimateDuration: false,
+    animateDuration: false,
     animationIn: 'bounceInDown',
     animationOut: 'bounceOutUp',
     customClass: '',
