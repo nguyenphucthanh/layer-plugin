@@ -2,6 +2,11 @@
 ##Reference
 [Animate.less - CSS3 Animation](https://github.com/machito/animate.less)
 
+##Required files for plugins
+* layer.js
+* plugin.less
+* animate.less
+
 ##HTML
 All attributes in below sample are required for initializing. You don't need to create overlay element, plugin will create an overlay to wrap your layer, create a backdrop for special event and move the whole block to body.
 ```html
