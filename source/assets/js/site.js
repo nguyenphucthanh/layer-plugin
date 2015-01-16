@@ -7,9 +7,7 @@ var Site = (function($, window, undefined) {
 
   function initPopup() {
     //basic layer
-    $('#layer-1').layer({
-    	scroll: 'popup'
-    });
+    $('#layer-1').layer();
   }
 
   return {

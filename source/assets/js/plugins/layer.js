@@ -237,8 +237,8 @@
       //or jquery fade animation
 
       //show overlay first
+      that.overlay.show(0);
       if(that.options.useCss3 && isCss3) {
-        that.overlay.show(0);
         that.backdrop
         .show(0)
         .addClass('animated fadeInOverlay')
@@ -293,13 +293,11 @@
     close: function(state) {
       var that = this;
 
-      if(typeof(state) === 'undefined') {
-        if('pushState' in history) {
+      if('pushState' in history) {
+        if(typeof(state) === 'undefined') {
           history.go(-1);
+          return;
         }
-      }
-      else if (state === 'popping') {
-        return;
       }
 
       if($('body').is('.no-overflow')) {
@@ -395,8 +393,8 @@
     overlayClass: 'overlay',
     overlayAnimateDuration: 400,
     animateDuration: 400,
-    animationIn: 'fadeIn',
-    animationOut: 'fadeOut',
+    animationIn: 'bounceInDown',
+    animationOut: 'bounceOutUp',
     customClass: '',
     position: 'fixed',
     width: 640,
