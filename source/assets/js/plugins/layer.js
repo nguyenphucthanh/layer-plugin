@@ -237,7 +237,11 @@
         //set content wrapper height
         that.layerContentWrap.height(elementHeight - parseInt(that.layerInner.css('padding-top'), 10) - parseInt(that.layerInner.css('padding-bottom'), 10));
 
-        that.backdrop.height($(window).height());
+        that.backdrop
+        .css({
+          'height': ''
+        })
+        .height($(window).height());
       }
       else if(that.options.scroll === 'popup') {
         /*
@@ -255,7 +259,17 @@
           'height': ''
         });
 
-        that.backdrop.height(that.element.height() + (padding * 2));
+        that.backdrop
+        .css({
+          'height': ''
+        })
+        .height(that.element.height() + (padding * 2));
+
+        if(that.backdrop.height() < $(window).height()) {
+          that.backdrop.css({
+            'height': $(window).height()
+          });
+        }
       }
 
 

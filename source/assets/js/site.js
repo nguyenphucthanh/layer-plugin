@@ -23,6 +23,10 @@ var Site = (function($, window, undefined) {
     $('#layer-7').layer({
     	forceFullHeight: true
     });
+
+    $('#layer-8').layer({
+      scroll: 'popup'
+    });
   }
 
   return {
