@@ -27,6 +27,11 @@ var Site = (function($, window, undefined) {
     $('#layer-8').layer({
       scroll: 'popup'
     });
+
+    $('#layer-9').layer({
+      scroll: 'popup',
+      forceFullHeight: true
+    });
   }
 
   return {

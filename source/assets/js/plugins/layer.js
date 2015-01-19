@@ -235,10 +235,10 @@
         });
 
         //set content wrapper height
-        that.layerContentWrap.height(elementHeight - parseInt(that.layerInner.css('padding-top'), 10) - parseInt(that.layerInner.css('padding-bottom'), 10));
+        that.layerContentWrap
+        .height(elementHeight - parseInt(that.layerInner.css('padding-top'), 10) - parseInt(that.layerInner.css('padding-bottom'), 10));
 
-        that.backdrop
-        .css({
+        that.backdrop.css({
           'height': ''
         })
         .height($(window).height());
@@ -252,6 +252,16 @@
           backdrop element should be large enough to contain whole layer
           so backdrop height = layer height + (padding option * 2)
         */
+        //Reset height
+        that.backdrop.css({
+          'height': ''
+        });
+
+        that.layerContentWrap.css({
+          'height': ''
+        });
+
+        //set position for layer
         that.element.css({
           'position': 'relative',
           'top': padding,
@@ -259,11 +269,21 @@
           'height': ''
         });
 
-        that.backdrop
-        .css({
-          'height': ''
-        })
-        .height(that.element.height() + (padding * 2));
+        //Check for forceFullHeight option
+        if(that.options.forceFullHeight) {
+          if(that.element.height() + (padding * 2) < $(window).height()) {
+            that.element.css({
+              'height' : $(window).height() - (padding * 2)
+            });
+          }
+
+          //set content wrapper height
+          that.layerContentWrap
+          .height(that.element.height() - parseInt(that.layerInner.css('padding-top'), 10) - parseInt(that.layerInner.css('padding-bottom'), 10));
+        }
+
+        //set backdrop height
+        that.backdrop.height(that.element.height() + (padding * 2));
 
         if(that.backdrop.height() < $(window).height()) {
           that.backdrop.css({
