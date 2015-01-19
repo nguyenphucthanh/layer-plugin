@@ -2,7 +2,7 @@
 	.inner
 		button.layer-close(data-layer-close="true")
 			span &times;
-		h2.layer-header Layer title
+		h2.layer-header Layer title #1
 		.layer-content-wrap
 			.layer-content
 				+loremipsum()
@@ -15,7 +15,7 @@
 	.inner
 		button.layer-close(data-layer-close="true")
 			span &times;
-		h2.layer-header Layer title
+		h2.layer-header Layer title #2
 		.layer-content-wrap
 			.layer-content
 				+loremipsum()
@@ -28,7 +28,7 @@
 	.inner
 		button.layer-close(data-layer-close="true")
 			span &times;
-		h2.layer-header Layer title
+		h2.layer-header Layer title #3
 		.layer-content-wrap
 			.layer-content
 				+loremipsum()
@@ -57,7 +57,7 @@
 	.inner
 		button.layer-close(data-layer-close="true")
 			span &times;
-		h2.layer-header Layer title
+		h2.layer-header Layer title #6
 		.layer-content-wrap
 			.layer-content
 				| Short data here, Short data here, Short data here, Short data here, Short data here, Short data here.
@@ -70,7 +70,7 @@
 	.inner
 		button.layer-close(data-layer-close="true")
 			span &times;
-		h2.layer-header Layer title
+		h2.layer-header Layer title #7
 		.layer-content-wrap
 			.layer-content
 				| Short data here, Short data here, Short data here, Short data here, Short data here, Short data here.
@@ -83,7 +83,7 @@
 	.inner
 		button.layer-close(data-layer-close="true")
 			span &times;
-		h2.layer-header Layer title
+		h2.layer-header Layer title #8
 		.layer-content-wrap
 			.layer-content
 				| Short data here, Short data here, Short data here, Short data here, Short data here, Short data here.
@@ -96,10 +96,40 @@
 	.inner
 		button.layer-close(data-layer-close="true")
 			span &times;
-		h2.layer-header Layer title
+		h2.layer-header Layer title #9
 		.layer-content-wrap
 			.layer-content
 				| Short data here, Short data here, Short data here, Short data here, Short data here, Short data here.
+		.layer-footer
+			.inner
+				div.right
+					button(data-layer-close="true") Close layer
+
+.layer#layer-10(data-layer="true")
+	.inner
+		button.layer-close(data-layer-close="true")
+			span &times;
+		h2.layer-header Layer title #10
+		.layer-content-wrap
+			.layer-content
+				p
+					a(href="javascript:void(0);" ,data-trigger-layer="#layer-11") Open nested layer
+				p
+					| Short data here, Short data here, Short data here, Short data here, Short data here, Short data here.
+		.layer-footer
+			.inner
+				div.right
+					button(data-layer-close="true") Close layer
+
+.layer#layer-11(data-layer="true")
+	.inner
+		button.layer-close(data-layer-close="true")
+			span &times;
+		h2.layer-header Nested layer
+		.layer-content-wrap
+			.layer-content
+				p
+					| Short data here, Short data here, Short data here, Short data here, Short data here, Short data here.
 		.layer-footer
 			.inner
 				div.right

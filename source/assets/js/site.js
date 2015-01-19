@@ -32,6 +32,8 @@ var Site = (function($, window, undefined) {
       scroll: 'popup',
       forceFullHeight: true
     });
+
+    $('#layer-10, #layer-11').layer();
   }
 
   return {

@@ -291,11 +291,21 @@
           });
         }
       }
-
-
     },
     open: function() {
       var that = this;
+
+      var currentLayer = $($.fn[pluginName].currentLayer());
+      if($.fn[pluginName].layerStack.length > 0) {
+        if(!currentLayer.is(that.element)) {
+          currentLayer[pluginName]('close', 'hide');
+        }
+      }
+
+      if(!currentLayer.is(that.element)) {
+        //insert stack
+        $.fn[pluginName].layerStack.push(that.element.attr('id'));
+      }
 
       $('body').addClass('no-overflow');
       //fix IE7 still able to scroll when set body overflow-hidden
@@ -380,6 +390,10 @@
           history.go(-1);
           return;
         }
+      }
+      if(state === 'popping') {
+        //remove from stack
+        $.fn[pluginName].layerStack.splice($.fn[pluginName].layerStack.length - 1, 1);
       }
 
       if($('body').is('.no-overflow')) {
@@ -505,8 +519,21 @@
     forceFullHeight: false
   };
 
-  $.fn[pluginName].hideAll = function() {
-    $('[data-' + pluginName + ']:visible').layer('close', 'popping');
+  $.fn[pluginName].layerStack = [];
+
+  $.fn[pluginName].hideCurrent = function() {
+    // $('[data-' + pluginName + ']:visible').layer('close', 'popping');
+    var lastLayer = $.fn[pluginName].currentLayer();
+    if(lastLayer) {
+      $(lastLayer)[pluginName]('close', 'popping');
+    }
+  };
+
+  $.fn[pluginName].currentLayer = function() {
+    if($.fn[pluginName].layerStack.length) {
+      return '#' + $.fn[pluginName].layerStack[$.fn[pluginName].layerStack.length - 1];
+    }
+    return null;
   };
 
   //add class .iemobile to html to detect IEMobile
@@ -526,10 +553,10 @@
     }, document.title, document.location.href);
 
     window.addEventListener('popstate', function(event) {
-      $.fn[pluginName].hideAll();
+      $.fn[pluginName].hideCurrent();
       if(event.state.popup) {
         if(event.state.popup !== 'no-popup') {
-          $(event.state.popup).layer('open');
+          $(event.state.popup)[pluginName]('open');
         }
       }
     });
